@@ -162,4 +162,104 @@ document.addEventListener('DOMContentLoaded', () => {
     // Outlook Calendar
     const outlookUrl = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(eventDetails.title)}&startdt=${eventDetails.startDate.substring(0,8)}T${eventDetails.startDate.substring(9,15)}&enddt=${eventDetails.endDate.substring(0,8)}T${eventDetails.endDate.substring(9,15)}&body=${encodeURIComponent(eventDetails.details)}&location=${encodeURIComponent(eventDetails.location)}`;
     document.getElementById('outlook-calendar').href = outlookUrl;
+
+    // 5. Gojek & Grab Button Handlers
+    const btnGojek = document.getElementById('btn-gojek');
+    const btnGrab = document.getElementById('btn-grab');
+
+    function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    if (btnGojek) {
+        btnGojek.addEventListener('click', () => {
+            if (isMobile()) {
+                window.location.href = "gojek://gocar?destination=Klodran%20RT%204%20RW%201%20Colomadu";
+            } else {
+                alert("Maaf, pemesanan Gojek hanya dapat dilakukan melalui HP yang telah menginstal aplikasi Gojek.");
+            }
+        });
+    }
+
+    if (btnGrab) {
+        btnGrab.addEventListener('click', () => {
+            if (isMobile()) {
+                window.location.href = "grab://open?screenType=BOOKING&dropOffName=Klodran%20RT%204%20RW%201%20Colomadu";
+            } else {
+                alert("Maaf, pemesanan Grab hanya dapat dilakukan melalui HP yang telah menginstal aplikasi Grab.");
+            }
+        });
+    }
 });
+
+// 6. YouTube Background Music Logic
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-player', {
+        height: '0',
+        width: '0',
+        videoId: 'vPF7P7RRSiI',
+        playerVars: {
+            'autoplay': 1,
+            'loop': 1,
+            'playlist': 'vPF7P7RRSiI',
+            'controls': 0,
+            'showinfo': 0,
+            'autohide': 1,
+            'modestbranding': 1
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
+
+let isPlaying = false;
+const musicBtn = document.getElementById('music-btn');
+
+function onPlayerReady(event) {
+    // Attempt autoplay
+    event.target.playVideo();
+    
+    // Fallback: start playing on first user interaction if blocked by browser
+    document.body.addEventListener('click', () => {
+        if (!isPlaying && player && player.getPlayerState() !== YT.PlayerState.PLAYING) {
+            player.playVideo();
+        }
+    }, { once: true });
+}
+
+function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING) {
+        isPlaying = true;
+        if(musicBtn) {
+            musicBtn.classList.add('playing');
+            musicBtn.innerHTML = '<i class="fas fa-compact-disc"></i>'; // Vinyl icon
+        }
+    } else {
+        isPlaying = false;
+        if(musicBtn) {
+            musicBtn.classList.remove('playing');
+            musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+        }
+    }
+}
+
+if (musicBtn) {
+    musicBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (player) {
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+    });
+}
