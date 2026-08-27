@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Guest Greeting from URL Parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestNameParam = urlParams.get('to');
+    
+    if (guestNameParam) {
+        document.getElementById('guest-name').innerText = guestNameParam;
+        document.getElementById('guest-greeting').style.display = 'inline-block';
+        
+        // Pre-fill RSVP form name if it exists
+        const rsvpNameInput = document.getElementById('name');
+        if (rsvpNameInput) {
+            rsvpNameInput.value = guestNameParam;
+        }
+    }
+
     // 1. Countdown Timer
     const targetDate = new Date("September 27, 2026 09:00:00").getTime();
     

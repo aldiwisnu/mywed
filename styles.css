@@ -168,7 +168,29 @@ h1, h2, h3, h4 {
 
 .hero .date {
     font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.guest-greeting {
     margin-bottom: 30px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: inline-block;
+}
+
+.guest-greeting p {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.guest-greeting h2 {
+    font-size: 1.5rem;
+    font-family: var(--font-heading);
+    margin-top: 5px;
+    color: var(--accent-color);
 }
 
 /* Countdown Section */
