@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnGojek) {
         btnGojek.addEventListener('click', () => {
             if (isMobile()) {
-                window.location.href = "gojek://gocar?destination=Klodran%20RT%204%20RW%201%20Colomadu";
+                window.location.href = "gojek://gocar?destination=-7.5307647,110.7935677";
             } else {
                 alert("Maaf, pemesanan Gojek hanya dapat dilakukan melalui HP yang telah menginstal aplikasi Gojek.");
             }
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnGrab) {
         btnGrab.addEventListener('click', () => {
             if (isMobile()) {
-                window.location.href = "grab://open?screenType=BOOKING&dropOffName=Klodran%20RT%204%20RW%201%20Colomadu";
+                window.location.href = "grab://open?screenType=BOOKING&dropOffLatitude=-7.5307647&dropOffLongitude=110.7935677&dropOffName=Plalangan%2C%20Klodran";
             } else {
                 alert("Maaf, pemesanan Grab hanya dapat dilakukan melalui HP yang telah menginstal aplikasi Grab.");
             }
